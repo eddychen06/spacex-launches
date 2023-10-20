@@ -5,12 +5,14 @@
   </template>
 
 <script setup lang="ts">
-import { getFirstLaunch } from "../api/api"
+import { getFirstLaunch } from "../services/api"
 
 export default {
-    props: {
-        
+  data () {
+    return {
+      launch: [],
     }
+  }
 }
 
 </script>
