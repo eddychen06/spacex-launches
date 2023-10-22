@@ -2,34 +2,17 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  font-size: 16px;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #9E9E9E;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
 }
 
 body {
@@ -45,29 +28,6 @@ h1 {
   line-height: 1.1;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-.card {
-  padding: 2em;
-}
-
 #app {
   max-width: 1280px;
   margin: 0 auto;
@@ -75,15 +35,153 @@ button:focus-visible {
   text-align: center;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+input {
+  width: 400px;
+  height: 36px;
+  padding: 8px;
+  border-radius: 10px;
+  align-items: center;
+  background-color: #212121;
+  font: inherit;
+  margin-bottom: 8px;
+  outline-width: 0;
+}
+
+
+.flight-card {
+  display: flex;
+  flex-direction: column;
+  width: 420px;
+  min-height: 440px;
+  border-radius: 12px;
+  background-color: #212121;
+  align-items: center;
+}
+
+.header {
+  display: flex;
+  flex-flow: row;
+  width: 380px;
+  height: 58px;
+  margin-top: 2rem;
+  gap: 12px;
+}
+
+.header img {
+  width: 58px;
+  height: 58px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.flight-name {
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.flight-name p {
+  margin: 0;
+  color: #9E9E9E;
+  font-weight: 500;
+}
+
+.flight-name h3 {
+  margin: 0;
+  font-size: 1.75rem;
+  margin-top: -8px;
+}
+
+.flight-alert {
+  margin-top: 20px;
+  width: 380px;
+  min-height: 46px;
+  border-radius: 8px;
+  background-color: #3E8664;
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.flight-alert p {
+  margin: 0;
+  padding: 16px;
+  color: #0E2C1D;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.flight-departure, .flight-arrival {
+  width: 380px;
+  min-height: 108px;
+  border-radius: 8px;
+  background-color: #000000;
+  margin-top: 16px;;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.flight-departure img, .flight-arrival img {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+}
+
+.departure-content, .arrival-content {
+  display: flex;
+  flex-direction: column;
+  width: 332px;
+  height: 82px;
+}
+
+.departure-main, .arrival-main {
+  display: flex;
+  flex-direction: row;
+  width: 332px;
+  flex-shrink: 0;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.departure-main h2, .arrival-main h2 {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 700px;
+}
+
+.departure-details, .arrival-details {
+  display: flex;
+  flex-flow: row;
+  align-items: flex-start;
+  flex-shrink: 1;
+  height: 34px;
+  width: 332px;
+  margin: 0;
+  margin-top: -4px;
+}
+
+.airport-details {
+  display: flex;
+  flex-flow: column;
+  flex-shrink: 1;
+  width: 90%;
+  align-items: flex-start;
+}
+
+.time-details {
+  width: 100px;
+  display: flex;
+  flex-flow: column;
+  align-items: flex-end;
+  flex-shrink: 1;
+}
+
+.airport-details p, .time-details p {
+  margin: 0;
+  margin-top: -4px;
+  font-weight: 500;
+  color: #9E9E9E;
 }

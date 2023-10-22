@@ -1,49 +1,47 @@
+<template>
+  <div>
+    <SearchBar @flight-number-updated="updateFlightNumber" @flight-search="fetchFlightData" />
+    <FlightCard :flightData="flightData" v-if="flightDataFetched" />
+  </div>
+</template>
+
 <script>
-import FlightCard from "./components/FlightCard.vue"
-import axios from "axios"
-const params = {
-  access_key: 'cced1f0882f1931898b20fd0a466a3dd'
-}
+import axios from "axios";
+import SearchBar from "./components/SearchBar.vue";
+import FlightCard from "./components/FlightCard.vue";
 
 export default {
-  name: "App",
   components: {
-    FlightCard
+    FlightCard,
+    SearchBar,
   },
   data() {
     return {
-      message: ""
-    }
+      flightNumber: "",
+      flightData: null,
+      flightDataFetched: false,
+    };
   },
   methods: {
-    async getFlight() {
-      await axios.get('https://api.aviationstack.com/v1/flights', { params })
-        .then(response => {
-          const apiResponse = response.data;
-          if (Array.isArray(apiResponse['results'])) {
-            apiResponse['results'].forEach(flight => {
-              if (!flight['live']['is_ground']) {
-                console.log(`${flight['airline']['name']} flight ${flight['flight']['iata']}`,
-                  `from ${flight['departure']['airport']} (${flight['departure']['iata']})`,
-                  `to ${flight['arrival']['airport']} (${flight['arrival']['iata']}) is in the air.`);
-              }
-            });
-          }
-        }).catch(error => {
+    updateFlightNumber(newFlightNumber) {
+      this.flightNumber = newFlightNumber;
+    },
+    fetchFlightData() {
+      const params = {
+        access_key: "e0667419decf9a290c2aa6199f05701f",
+        flight_icao: this.flightNumber,
+      };
+
+      axios
+        .get("http://api.aviationstack.com/v1/flights", {params})
+        .then((response) => {
+          this.flightData = response.data.data[0]
+          this.flightDataFetched = true
+        })
+        .catch((error) => {
           console.log(error);
         });
-    }
-  }
-}
-
+    },
+  },
+};
 </script>
-
-<template>
-  <h1>Flight Tracker</h1>
-  <form @submit.prevent="getFlight">
-    <input ref="input" class="terminal-input" autofocus v-model="message"
-      placeholder="Enter Flight Number (eg. AAL1004)" />
-  </form>
-  <FlightCard v-bind:message="message" />
-</template>
-
