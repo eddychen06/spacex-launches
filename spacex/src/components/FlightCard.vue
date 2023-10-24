@@ -9,14 +9,14 @@
                 </div>
             </div>
             <div class="flight-alert">
-                <p>Gate Departure in <span style="color: white">2h 40m</span></p>
+                <p>Gate Departure in <span style="color: white">2h 40m</span>{{ }}</p>
             </div>
             <div class="flight-departure">
                 <img src="../assets/arrow.png">
                 <div class="departure-content">
                     <div class="departure-main">
                         <h2>{{ flightData.departure.iata }}</h2>
-                        <h2 style="color: #3E8664">{{ flightData.departure.scheduled.substring(11, 16) }} AM</h2>
+                        <h2 style="color: #3E8664">{{ flightData.departure.scheduled.substring(11, 16) }}</h2>
                     </div>
                     <div class="departure-details">
                         <div class="airport-details">
@@ -36,7 +36,7 @@
                 <div class="arrival-content">
                     <div class="arrival-main">
                         <h2>{{ flightData.arrival.iata }}</h2>
-                        <h2 style="color: #3E8664">{{ flightData.arrival.scheduled.substring(11, 16) }} AM</h2>
+                        <h2 style="color: #3E8664">{{ flightData.arrival.scheduled.substring(11, 16) }}</h2>
                     </div>
                     <div class="arrival-details">
                         <div class="airport-details">
@@ -61,17 +61,39 @@ import airports from "../airports.json"
 
 export default {
     name: "FlightCard",
-    data () {
-        aiportData: Object
-        cityData: Object
-    },
     props: {
         flightData: Object
     },
     methods: {
         getCityName(icao) {
             return airports.find(x => x.icao === icao).city
+        },
+        getAlert(status) {
+            if (status == "scheduled") {
+                let date1 = new Date(this.flightData.departure.scheduled)
+                let date2 = new Date()
+
+                let difference =(date2.getTime() - date1.getTime()) / 1000;
+                difference /= 60;
+
+                return `Departing <span style="color: white">in ${differece/60}h ${difference%60}m</span>`;
+            } else if (status == "active") {
+                let date1 = new Date(this.flightData.arrival.scheduled)
+                let date2 = new Date()
+
+                let difference =(date2.getTime() - date1.getTime()) / 1000;
+                difference /= 60;
+
+                return `Landing <span style="color: white">in ${differece/60}h ${difference%60}m</span>`;
+            } else if (status == "landed") {
+                return "Flight completede"
+            } else if (status == "cancelled") {
+                return ("Flight cancelled")
+            } else {
+                return
+            }
         }
+
     }
 }
 </script>
